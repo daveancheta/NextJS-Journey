@@ -3,26 +3,11 @@ import SectionHeader from "../common/section-header";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import ProductCard from "../products/product-card";
+import { getFeaturedProducts } from "@/lib/products/product-select";
 
-const FeatureProducts = [
-    {
-        id: 1,
-        name: "PartyKit",
-        description: "All-in-one party kit for unforgettable celebrations.",
-        tags: ["SaaS", "Events"],
-        votes: 615,
-        isFeatured: false,
-    }, 
-    {
-        id: 2,
-        name: "Github",
-        description: "Share your projects here",
-        tags: ["Version Control"],
-        votes: 400,
-        isFeatured: true,
-    }, 
-]
-export default function FeaturedProducst() {
+export default async function FeaturedProducst() {
+    const FeatureProducts = await getFeaturedProducts();
+
     return (
         <section className="py-20 bg-muted/20">
             <div className="wrapper">

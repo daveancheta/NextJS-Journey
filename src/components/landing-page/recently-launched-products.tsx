@@ -2,26 +2,11 @@ import { CalendarIcon, RocketIcon } from "lucide-react";
 import SectionHeader from "../common/section-header";
 import ProductCard from "../products/product-card";
 import EmptyState from "../common/empty-state";
+import { getRecentProducts } from "@/lib/products/product-select";
 
-export default function RecentlyLaunchedProducts() {
-    const recentlyLaunchedProducts = [
-        {
-            id: 1,
-            name: "PartyKit",
-            description: "All-in-one party kit for unforgettable celebrations.",
-            tags: ["SaaS", "Events"],
-            votes: 615,
-            isFeatured: false,
-        },
-        {
-            id: 2,
-            name: "Github",
-            description: "Share your projects here",
-            tags: ["Version Control"],
-            votes: 400,
-            isFeatured: true,
-        },
-    ]
+export default async function RecentlyLaunchedProducts() {
+    const recentlyLaunchedProducts = await getRecentProducts()
+
     return (
         <section className="py-20">
             <div className="wrapper">
