@@ -5,24 +5,24 @@ import { db } from '../../../db';
 import { products } from '../../../db/schema';
 import z from 'zod';
 
-type FormState = {
-    success: boolean;
-    errors?: Record<string, string[]>;
-    message: string
-}
-
-
 export const addProductAction = async (prevState: FormState,
     formData: FormData) => {
     console.log(formData)
 
     try {
-        const { userId } = await auth();
+        const { userId, orgId } = await auth();
 
         if (!userId) {
             return {
                 success: false,
                 message: "You must sined in to submit a product"
+            }
+        }
+
+        if (!orgId) {
+            return {
+                success: false,
+                message: "You must member of an organization to submit a product"
             }
         }
 
@@ -57,7 +57,7 @@ export const addProductAction = async (prevState: FormState,
             tags: tagsArray,
             submittedBy: userEmail,
             userId,
-            organizationId: "",
+            organizationId: orgId,
             status: "pending",
         })
 

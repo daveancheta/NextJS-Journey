@@ -1,8 +1,9 @@
-import { CompassIcon, HomeIcon, Loader2, SparkleIcon, SparklesIcon, UserIcon } from "lucide-react";
+import { BuildingIcon, CompassIcon, HomeIcon, Loader2, SparkleIcon, SparklesIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { OrganizationSwitcher, SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { Suspense } from "react";
+import CustomUserButton from "./custom-user-button";
 
 const Logo = () => {
     return (
@@ -44,24 +45,24 @@ export default function Header() {
                         </Link>
                     </nav>
                     <div className="flex items-center gap-3">
-                        <Suspense fallback={<div><Loader2 className="size-4 animate-spin text-black"/></div>}>
-                        <SignedOut>
-                            <SignInButton />
-                            <SignUpButton>
-                                <Button >
-                                    Sign Up
+                        <Suspense fallback={<div><Loader2 className="size-4 animate-spin text-black" /></div>}>
+                            <SignedOut>
+                                <SignInButton />
+                                <SignUpButton>
+                                    <Button >
+                                        Sign Up
+                                    </Button>
+                                </SignUpButton>
+                            </SignedOut>
+                            <SignedIn>
+                                <Button asChild>
+                                    <Link href={'/submit'}>
+                                        <SparklesIcon className="size-4" />
+                                        Submit Project
+                                    </Link>
                                 </Button>
-                            </SignUpButton>
-                        </SignedOut>
-                        <SignedIn>
-                            <Button asChild>
-                                <Link href={'/submit'}>
-                                    <SparklesIcon className="size-4" />
-                                    Submit Project
-                                </Link>
-                            </Button>
-                            <UserButton />
-                        </SignedIn>
+                             <CustomUserButton />
+                            </SignedIn>
                         </Suspense>
                     </div>
                 </div>
